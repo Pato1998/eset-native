@@ -4,7 +4,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
 <script>
-  const msg = "<? echo isset($_SESSION['msg']) ? $_SESSION['msg'] : ''?>"; 
+  const msg = "<? echo isset($msg) ? $msg : ''?>"; 
 </script>
 
 <script>
@@ -18,7 +18,7 @@
   });
 </script>
 
-<script src="http://localhost/eset-native/src/js/app.js"></script>
+<script src="<?php echo URL . 'src/js/app.js'?>"></script>
 
 </body>
 </html>

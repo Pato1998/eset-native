@@ -11,7 +11,7 @@ class Type extends Model{
     }
 
     public function getId(){
-        return $this->$id;
+        return $this->id;
     }
 
     public function getNombre(){
@@ -27,5 +27,3 @@ class Type extends Model{
     }
 
 }
-
-?>

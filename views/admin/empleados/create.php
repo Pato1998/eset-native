@@ -5,7 +5,7 @@
 
 <h2 class="text-center mt-4">Agregar empleado</h2>
 
-<form action="guardar" method="POST" class="mt-4">
+<form action="store" method="POST" class="mt-4">
   
   <div class="form-group">
     <label for="nombre">Nombre</label>

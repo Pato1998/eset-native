@@ -1,5 +1,4 @@
 <?php
-include_once('models/Model.php');
 include_once('models/Type.php');
 
 class TipoEmpleado extends Type{
@@ -8,4 +7,3 @@ class TipoEmpleado extends Type{
         parent::__construct('tipo_empleado', $cn);
     }
 }
-?>

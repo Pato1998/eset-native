@@ -77,12 +77,23 @@ class Empleado extends Model{
     public function save() {
         $sql = 'insert into ' . $this->table . '(nombre, apellido, edad, empresa_id, tipo_empleado_id) values(?, ?, ?, ?, ?)';
         $stmt = $this->conexion->prepare($sql);
-        $stmt->bindParam(1, $this->name);
+        $stmt->bindParam(1, $this->nombre);
         $stmt->bindParam(2, $this->apellido);
         $stmt->bindParam(3, $this->edad);
         $stmt->bindParam(4, $this->empresa_id);
         $stmt->bindParam(5, $this->tipo_empleado_id);
         $stmt->execute();
+    }
+
+    public function update(){
+        $sql = 'update ' . $this->table . ' set nombre = ?, apellido = ?, edad = ?, empresa_id = ?, tipo_empleado_id = ?, tipo_especialidad_id = ? where id = ?';
+        $params = [$this->nombre, $this->apellido, $this->edad, $this->empresa_id, $this->tipo_empleado_id, $this->tipo_especialidad_id, $this->id];
+        $this->executeQuery($sql, $params);
+    }
+
+    public function getPromedioEdad(){
+        $sql = 'select round(avg(edad), 2) as promedio from ' . $this->table;
+        return $this->executeQuery($sql)[0]['promedio'];
     }
 
 }

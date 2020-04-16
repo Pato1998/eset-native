@@ -10,6 +10,15 @@
     const appUrl = 'http://localhost/eset-native/';
   </script>
 
+  <?php
+    if (isset($_SESSION['msg'])){
+      $msg = $_SESSION['msg'];
+      unset($_SESSION['msg']);
+    }
+    
+    include_once(__DIR__ . '/modal.php');
+  ?>
+  
 </head>
 <body>
 

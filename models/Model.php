@@ -15,7 +15,7 @@ class Model
 		$this->conexion = null;
 	}
 
-	public function getAll($estado = 1)
+	public function getAll()
 	{	
 		$query = "SELECT * FROM " . $this->table;
 
@@ -34,7 +34,7 @@ class Model
 		$stmt->execute();
 		$response = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-		return $this->parseToObject($response)[0];
+		return count($response) > 0 ? $this->parseToObject($response)[0] : [];
 	}
 
 	public function delete($id)
@@ -65,6 +65,7 @@ class Model
 		foreach($data as $d){
 
 			$obj = new $objClass($this->conexion);
+
 			foreach($props as $prop => $value){
 				if ($prop != 'conexion' && $prop != 'table'){
 					$ExplodeProp  = explode('_', $prop);
@@ -74,25 +75,41 @@ class Model
 					}
 
 					$newProp = 'set' . $auxProp;
-	
-					$obj->{$newProp}($d[$prop]);
+					$obj->{$newProp}($d[$prop]);	
 				}
 			}
-
 			$objs[] = $obj;
 		}
+		
 
 		return $objs;
 	}
 
-	public function executeQuery($query)
+	public function executeQuery($query, $params = [], $array = true)
 	{
 		$stmt = $this->conexion->prepare($query);
+		if(count($params) > 0){
+
+			for($i = 0; $i < count($params); $i++){
+				$stmt->bindParam(($i + 1), $params[$i]);
+			}
+		}
 		$stmt->execute();
 
 		$response = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	
+		if ($array){
+			return $response;
+		} else {
+			$this->parseToObject($response);
+		}
+	}
 
-		return $response;
+	public function lastId(){
+		$sql = 'select id from ' . $this->table . ' order by id desc';
+		return $this->executeQuery($sql)[0]['id'];
 	}
 
 }
+
+?>
